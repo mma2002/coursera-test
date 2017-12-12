@@ -46,7 +46,7 @@
     <!-- Already Bought List -->
     <div class="col-md-6" ng-controller='AlreadyBoughtController as list'>
      <h2>Already Bought:</h2>
-     <li ng-repeat="item in list.items">Buy {{item.quantity}} {{item.name}}
+     <li ng-repeat="item in list.items">Bought {{item.quantity}} {{item.name}}
        <!-- <button ng-click="toBuyList.buy($index);">Bought</button> -->
      </li>
      <div ng-if="list.items.length === 0" class="emptyMessage">Nothing bought yet.</div>
