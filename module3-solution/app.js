@@ -13,11 +13,11 @@ function FoundItemsDirective() {
     // template: '{{ found.name }}',
     templateUrl: 'foundList.html',
     scope: {
-      items: '<',
+      found: '<',
       onRemove: '&'
     },
-    controller: NarrowItDownController,
-    controllerAs: 'foundItems',
+    controller: FoundItemsDirectiveController,
+    controllerAs: 'list',
     bindToController: true
   };
 
@@ -25,28 +25,28 @@ function FoundItemsDirective() {
 }
 
 function FoundItemsDirectiveController() {
-  var foundItems = this;
+  var list = this;
 }
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
-  var menu = this;
-  menu.searchTerm = "";
-  menu.found = [];
+  var list = this;
+  // list.searchTerm = "";
+  // list.found = [];
 
-  menu.filter = function () {
+  list.filter = function () {
     console.log("filter");
-    var promise = MenuSearchService.getMatchedMenuItems(menu.searchTerm);
+    var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
 
     promise.then(function (foundItems) {
       console.log(foundItems);
-      menu.found = foundItems;
+      list.found = foundItems;
     })
     .catch(function (error) {
       console.log(error);
     })
   };
-  menu.removeItem = function (itemIndex) {
-    menu.found.splice(itemIndex, 1);
+  list.removeItem = function (itemIndex) {
+    list.found.splice(itemIndex, 1);
   };
 
 }
