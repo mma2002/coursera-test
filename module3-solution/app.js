@@ -14,6 +14,7 @@ function FoundItemsDirective() {
     templateUrl: 'foundList.html',
     scope: {
       found: '<',
+      myTitle: '@title',
       onRemove: '&'
     },
     controller: FoundItemsDirectiveController,
@@ -30,9 +31,10 @@ function FoundItemsDirectiveController() {
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
   var list = this;
-  // list.searchTerm = "";
-  // list.found = [];
+  list.message = "";
+  list.found = [];
 
+  console.log(list.title);
   list.filter = function () {
     console.log("filter");
     var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
@@ -40,10 +42,18 @@ function NarrowItDownController(MenuSearchService) {
     promise.then(function (foundItems) {
       console.log(foundItems);
       list.found = foundItems;
+
+      if (foundItems.length < 1)  {
+        list.message = "Nothing found";
+      } else {
+        list.message = "";
+      }
+
     })
     .catch(function (error) {
       console.log(error);
     })
+
   };
   list.removeItem = function (itemIndex) {
     list.found.splice(itemIndex, 1);
@@ -61,25 +71,27 @@ function MenuSearchService($http, ApiBasePath) {
       url: (ApiBasePath + "/menu_items.json")
     }).then(function (result) {
       var foundItems = [];
+      if ((searchTerm  === undefined) ||
+        (searchTerm !== undefined) && (searchTerm.isEmpty))
+        return foundItems;
+
       var items = result.data.menu_items;
       for (var i = 0; i < items.length; i++) {
         var description = items[i].description;
         if (description.toLowerCase().indexOf(searchTerm) !== -1) {
           foundItems.push(items[i]);
         }
-        // if (items[i].description.includes(searchTerm)) {
-        //   foundItems.push(items[i]);
-        // }
       }
+
 
       return foundItems;
     });
 
   };
 
-  service.removeItem = function (itemIndex) {
-    items.splice(itemIndex, 1);
-  };
+  // service.removeItem = function (itemIndex) {
+  //   items.splice(itemIndex, 1);
+  // };
 
 
 }
