@@ -71,8 +71,9 @@ function MenuSearchService($http, ApiBasePath) {
       url: (ApiBasePath + "/menu_items.json")
     }).then(function (result) {
       var foundItems = [];
+      console.log("searchTerm:"+searchTerm);
       if ((searchTerm  === undefined) ||
-        (searchTerm !== undefined) && (searchTerm.isEmpty))
+        (searchTerm !== undefined) && (searchTerm.length === 0))
         return foundItems;
 
       var items = result.data.menu_items;
