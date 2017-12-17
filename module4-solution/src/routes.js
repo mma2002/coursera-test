@@ -31,21 +31,6 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     }
   })
 
-  .state('itemDetail', {
-    url: '/item-detail/{itemId}',
-    templateUrl: 'src/menuapp/templates/item-detail.template.html',
-    controller: 'ItemDetailController as itemDetail',
-    resolve: {
-      item: ['$stateParams', 'MenuDataService',
-            function ($stateParams, MenuDataService) {
-              return MenuDataService.getAllCategories()
-                .then(function (items) {
-                  return items[$stateParams.itemId];
-                });
-            }]
-    }
-  });
-
   // .state('itemDetail', {
   //   url: '/item-detail/{itemId}',
   //   templateUrl: 'src/menuapp/templates/item-detail.template.html',
@@ -53,16 +38,29 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   //   resolve: {
   //     item: ['$stateParams', 'MenuDataService',
   //           function ($stateParams, MenuDataService) {
-  //             // console.log("111="+itemDetail.short_name);
-  //             return MenuDataService.getItemsForCategory('L')
-  //             // return MenuDataService.getAllCategories()
+  //             return MenuDataService.getAllCategories()
   //               .then(function (items) {
-  //                 // return items[0];
   //                 return items[$stateParams.itemId];
   //               });
   //           }]
   //   }
   // });
+
+  .state('itemDetail', {
+    url: '/item-detail/category-{categoryShortName}',
+    templateUrl: 'src/menuapp/templates/item-detail.template.html',
+    controller: 'ItemDetailController as itemDetail',
+    resolve: {
+      item: ['$stateParams', 'MenuDataService',
+            function ($stateParams, MenuDataService) {
+              return MenuDataService.getItemsForCategory($stateParams.categoryShortName)
+              .then(function (items) {
+                console.log(items.category.short_name);
+                return items.category;
+              });
+            }]
+    }
+  });
 
 }
 
