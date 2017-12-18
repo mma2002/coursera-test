@@ -20,12 +20,12 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   })
 
   // Premade list page
-  .state('mainList', {
-    url: '/main-list',
+  .state('categoryList', {
+    url: '/category-list',
     templateUrl: 'src/menuapp/templates/main-categorieslist.template.html',
-    controller: 'CategoriesListController as mainList',
+    controller: 'CategoriesListController as categoryList',
     resolve: {
-      items: ['MenuDataService', function (MenuDataService) {
+      categories: ['MenuDataService', function (MenuDataService) {
         return MenuDataService.getAllCategories();
       }]
     }
@@ -46,18 +46,19 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   //   }
   // });
 
-  .state('itemDetail', {
-    url: '/item-detail/category-{categoryShortName}',
-    templateUrl: 'src/menuapp/templates/item-detail.template.html',
-    controller: 'ItemDetailController as itemDetail',
+  .state('items', {
+    // url: '/item-detail/category-{categoryShortName}',
+    url: "/category-list/items/{categoryShortName}",
+    templateUrl: 'src/menuapp/templates/categoryItems.template.html',
+    controller: 'ItemDetailController as categoryItems',
     resolve: {
-      item: ['$stateParams', 'MenuDataService',
+      items: ['$stateParams', 'MenuDataService',
             function ($stateParams, MenuDataService) {
               return MenuDataService.getItemsForCategory($stateParams.categoryShortName)
-              .then(function (items) {
-                // console.log(items.category.short_name);
-                return items.category;
-              });
+              // .then(function (items) {
+              //    //console.log(items.menu_items[0].name);
+              //   return items.menu_items;
+              // });
             }]
     }
   });

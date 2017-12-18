@@ -33,6 +33,14 @@ function MenuDataService($http, ApiBasePath, $q, $timeout) {
     return deferred.promise;
   };
 
+  // service.getItemsForCategory = function (categoryShortName) {
+  //   return $http({
+  //     url: (ApiBaseUri + "/menu_items.json"),
+  //     params: {category: categoryShortName}
+  //   }).then(function (response) {
+  //     return response.data.menu_items;
+  //   });
+  // }
 
   service.getItemsForCategory = function (categoryShortName) {
     console.log(ApiBasePath + "/menu_items.json?category="+categoryShortName);
@@ -44,7 +52,7 @@ function MenuDataService($http, ApiBasePath, $q, $timeout) {
       //   category: categoryShortName
       // }
     }).then(function (result) {
-      items = result.data;
+      items = result.data.menu_items;
         // console.log("items="+result.data);
        // console.log("items::"+result.data.category);
     });
