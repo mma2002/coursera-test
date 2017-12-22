@@ -1,0 +1,89 @@
+<div class="container">
+  <h1>Sign Up</h1>
+
+  <fieldset>
+    <legend>Registration</legend>
+    <form name='signUpForm' novalidate>
+
+      <input type="text" name="firstname" placeholder="Pick a firstname"
+        ng-model="reg.user.firstname"
+        required
+        minlength="4"
+        ng-maxlength="10">
+        {{ reg.user.firstname }}
+        <span
+          ng-if="(signUpForm.firstname.$error.minlength || signUpForm.firstname.$error.required) && signUpForm.firstname.$touched">
+          Firstname must be at least 4 characters long
+        </span>
+        <span ng-if="signUpForm.firstname.$error.maxlength && signUpForm.firstname.$touched">
+          Firstname must not be longer than 10 characters
+        </span>
+        <br>
+
+        <input type="text" name="lastname" placeholder="Pick a lastname"
+          ng-model="reg.user.lastname"
+          required
+          minlength="4"
+          ng-maxlength="10">
+          {{ reg.user.firstname }}
+          <span
+            ng-if="(signUpForm.lastname.$error.minlength || signUpForm.lastname.$error.required) && signUpForm.lastname.$touched">
+            Firstname must be at least 4 characters long
+          </span>
+          <span ng-if="signUpForm.lastname.$error.maxlength && signUpForm.lastname.$touched">
+            Firstname must not be longer than 10 characters
+          </span>
+          <br>
+
+      <input type="email" name="email" placeholder="Email"
+        ng-model="reg.user.email"
+        required>
+        <span ng-if="signUpForm.email.$invalid && signUpForm.email.$touched">
+          Must be a valid email address: handle@domain format
+        </span>
+        <br>
+
+      <input type="text" name="phone" placeholder="Phone ###-###-####"
+        ng-model="reg.user.phone"
+        pattern="(\d{3})-(\d{3})-(\d{4})">
+        <span ng-if="signUpForm.phone.$invalid && signUpForm.phone.$touched">
+          Phone must be in the format ###-###-####.
+        </span>
+        <br>
+
+        <input type="text" name="menunumber" placeholder="Pick a menunumber"
+          ng-model="reg.user.menunumber"
+          required
+          minlength="4"
+          ng-maxlength="10">
+          {{ reg.user.menunumber }}
+          <span
+            ng-if="(signUpForm.menunumber.$error.minlength || signUpForm.menunumber.$error.required) && signUpForm.menunumber.$touched">
+            menunumber must be at least 4 characters long
+          </span>
+          <span ng-if="signUpForm.menunumber.$error.maxlength && signUpForm.menunumber.$touched">
+            menunumber must not be longer than 10 characters
+          </span>
+          <br>
+
+      <button
+        ng-disabled="signUpForm.$invalid"
+        ng-click="reg.submit()">Submit</button>
+
+        <div style="margin-top: 10px;">
+          Form valid? {{ regForm.$valid }}
+        </div>
+    </form>
+  </fieldset>
+
+  <div id="info" ng-if="reg.completed">
+    Firstname: {{ reg.user.firstname}} <br>
+    Lastname: {{ reg.user.lastname}} <br>
+    Email: {{ reg.user.email}} <br>
+    Phone: {{ reg.user.phone }} <br>
+    Menunumber: {{ reg.user.menunumber}}
+  </div>
+
+  <script src="lib/angular.min.js"></script>
+  <script src="src/app.js"></script>
+</div>
