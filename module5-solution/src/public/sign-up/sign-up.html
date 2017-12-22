@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" ng-controller="SignUpController as reg">
   <h1>Sign Up</h1>
 
   <fieldset>
-    <legend>Registration</legend>
+    <!-- <legend>Registration</legend> -->
     <form name='signUpForm' novalidate>
 
       <input type="text" name="firstname" placeholder="Pick a firstname"
@@ -28,10 +28,10 @@
           {{ reg.user.firstname }}
           <span
             ng-if="(signUpForm.lastname.$error.minlength || signUpForm.lastname.$error.required) && signUpForm.lastname.$touched">
-            Firstname must be at least 4 characters long
+            Lastname must be at least 4 characters long
           </span>
           <span ng-if="signUpForm.lastname.$error.maxlength && signUpForm.lastname.$touched">
-            Firstname must not be longer than 10 characters
+            Lastname must not be longer than 10 characters
           </span>
           <br>
 
@@ -54,8 +54,8 @@
         <input type="text" name="menunumber" placeholder="Pick a menunumber"
           ng-model="reg.user.menunumber"
           required
-          minlength="4"
-          ng-maxlength="10">
+          minlength="1"
+          ng-maxlength="2">
           {{ reg.user.menunumber }}
           <span
             ng-if="(signUpForm.menunumber.$error.minlength || signUpForm.menunumber.$error.required) && signUpForm.menunumber.$touched">
@@ -85,5 +85,5 @@
   </div>
 
   <script src="lib/angular.min.js"></script>
-  <script src="src/app.js"></script>
+  <!-- <script src="src/app.js"></script> -->
 </div>
