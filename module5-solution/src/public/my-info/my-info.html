@@ -1,8 +1,8 @@
-<div class="container" ng-controller="MyInfoController as info">
+<!-- <div class="container" ng-controller="MyInfoController as info">
   <h1>Sign Up</h1>
 
   <div id="info">
-    Firstname: {{ info.user.firstname}} <br>
+    Firstname: {{ firstname}} <br>
     Lastname: {{ info.user.lastname}} <br>
     Email: {{ info.user.email}} <br>
     Phone: {{ info.user.phone }} <br>
@@ -10,5 +10,20 @@
   </div>
 
   <script src="lib/angular.min.js"></script>
-  <!-- <script src="src/app.js"></script> -->
+  <script src="src/app.js"></script>
+</div> -->
+
+<div class="container">
+  <h2 id="my-info-title" class="text-center">
+    {{ myInfoCtrl.menuInfos.menu_items.name}} Menu
+  </h2>
+  <div class="text-center">
+
+  </div>
+
+  <menu-info ng-repeat="menuInfo in myInfoCtrl.menuInfos.menu_items"
+             menu-info="menuInfo">
+  </menu-info>
+
+
 </div>

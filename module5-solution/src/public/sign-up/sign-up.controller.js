@@ -4,8 +4,8 @@
 angular.module('public')
 .controller('SignUpController', SignUpController);
 
-SignUpController.$inject = ['$scope', 'RegDataFactory'];
-function SignUpController($scope, RegDataFactory) {
+SignUpController.$inject = ['$scope', 'RegDataService'];
+function SignUpController($scope, RegDataService) {
   var reg = this;
 
   reg.submit = function () {
@@ -13,8 +13,8 @@ function SignUpController($scope, RegDataFactory) {
     console.log(reg.user.firstname);
     reg.completed = true;
 
-    var regdata = RegDataFactory();
-    regdata.setData(reg.user);
+    //var regdata = RegDataService();
+    RegDataService.setData(reg.user);
   }
 }
 

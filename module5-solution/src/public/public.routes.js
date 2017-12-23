@@ -47,9 +47,19 @@ function routeConfig ($stateProvider) {
     })
     .state('public.my-info', {
       url: '/my-info',
-      templateUrl: 'src/public/my-info/my-info.html'
+      templateUrl: 'src/public/my-info/my-info.html',
+      controller: 'MyInfoController',
+      controllerAs: 'myInfoCtrl',
+      resolve: {
+        menuInfos: ['$stateParams','RegDataService', function ($stateParams, RegDataService) {
+          return RegDataService.getMenuItems();
+        }]
+      }
     });
-
+    // .state('public.my-info', {
+    //   url: '/my-info',
+    //   templateUrl: 'src/public/my-info/my-info.html'
+    // });
 
 }
 })();

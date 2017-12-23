@@ -4,15 +4,24 @@
 angular.module('public')
 .controller('MyInfoController', MyInfoController);
 
-MyInfoController.$inject = ['$scope', 'RegDataFactory'];
-function MyInfoController($scope, RegDataFactory) {
-  var info = this;
+// MyInfoController.$inject = ['$scope', 'RegDataService'];
+// function MyInfoController($scope, RegDataService) {
+//   var info = this;
+//
+//   // var regdata = RegDataService();
+//   var regData = RegDataService.getData();
+//   var menuItems = RegDataService.getMenuItems();
+//   $scope.firstname = regData.firstname;
+//   console.log(regData.firstname);
+//   console.log(regData);
+//   console.log("menuItems:"+menuItems.menu_items[0].name);
+//   // console.log("menuItem:"+menuItems[0]);
+// }
 
-  var regdata = RegDataFactory();
-  var regData = regdata.getData();
-  // info.user.firstname = regData.firstname;
-  console.log(regData.firstname);
-  console.log(regdata.getData());
+MyInfoController.$inject = ['menuInfos'];
+function MyInfoController(menuInfos) {
+  var $ctrl = this;
+  $ctrl.menuInfos = menuInfos;
 }
 
 })();
