@@ -14,7 +14,10 @@ function SignUpController($scope, RegDataService) {
     reg.completed = true;
 
     //var regdata = RegDataService();
-    RegDataService.setData(reg.user);
+    var items = RegDataService.setData(reg.user);
+    console.log('regdata:'+items);
+
+
   }
 }
 

@@ -56,10 +56,6 @@ function routeConfig ($stateProvider) {
         }]
       }
     });
-    // .state('public.my-info', {
-    //   url: '/my-info',
-    //   templateUrl: 'src/public/my-info/my-info.html'
-    // });
 
 }
 })();

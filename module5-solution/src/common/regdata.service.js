@@ -6,8 +6,8 @@ angular.module('common')
 
 var regData = [];
 
-RegDataService.$inject = ['$http', 'ApiPath'];
-function RegDataService($http, ApiPath) {
+RegDataService.$inject = ['$http', 'ApiPath', '$q', '$timeout'];
+function RegDataService($http, ApiPath, $q, $timeout) {
   var service = this;
 
 
@@ -17,78 +17,55 @@ function RegDataService($http, ApiPath) {
   };
 
   service.setData = function (newFormData) {
+    var deferred = $q.defer();
     console.log("setData"+newFormData.firstname);
 
     var short_name = newFormData.menunumber;
 
-    // var menu = getMenuItem(short_name);
-    // console.log("description:::"+menu[0]);
-
-    var item = {
-      firstname: newFormData.firstname,
-      lastname: newFormData.lastname,
-      email: newFormData.email,
-      phone: newFormData.phone,
-      menunumber: newFormData.menunumber
-    };
-    regData.push(item);
-    // regData = newFormData;
-    //return regData;
-  };
-
-  service.getMenuItems = function () {
-    var config = {};
-    // console.log("menunumber:"+regData[0].menunumber);
-    var short_name = regData[0].menunumber;
-    if (short_name) {
-      console.log(short_name);
-      config.params = {'short_name': short_name};
-    }
-
     return $http.get(ApiPath + '/menu_items.json').then(function (response) {
       console.log("response");
-      // console.log(response.data.menu_items.length);
-      // console.log(response.data.menu_items.length);
-      var item = regData[0];
-      var foundItems = [];
+      // var item = regData[0];
+      // var foundItems = [];
 
       var items = response.data.menu_items;
       for (var i = 0; i < items.length; i++) {
         if (JSON.stringify(short_name) == JSON.stringify(items[i].short_name)) {
-        // if (short_name.toLowerCase().indexOf(items[i].short_name) !== -1) {
-        // if (deepEqual(short_name, items[i].short_name)) {
-          console.log("stringify:"+item.firstname);
-          var newItem = {
-            firstname: item.firstname,
-            lastname: item.lastname,
-            email: item.email,
-            phone: item.phone,
-            menunumber: item.menunumber,
+          // console.log("stringify:"+item.firstname);
+          var item = {
+            isSignUp: true,
+            firstname: newFormData.firstname,
+            lastname: newFormData.lastname,
+            email: newFormData.email,
+            phone: newFormData.phone,
+            menunumber: newFormData.menunumber,
             menuname: items[i].name,
             shortname: items[i].short_name,
             description: items[i].description
           };
-          // regData.found.splice(0, 1);
-          foundItems.push(newItem);
+          regData.push(item);
         }
-        // console.log("response:::"+response.data.menu_items[i].short_name);
       }
-
-      //console.log(items.menu_items[0].name);
-      return foundItems;
     });
+    // Wait 2 seconds before returning
+    $timeout(function () {
+      // deferred.reject(items);
+      deferred.resolve(regData);
+    }, 2000);
+    return deferred.reject(regData);
   };
-  // service.getMenuItems = function (category) {
-  //   var config = {};
-  //   if (category) {
-  //     config.params = {'category': category};
-  //   }
-  //
-  //   return $http.get(ApiPath + '/menu_items.json', config).then(function (response) {
-  //     return response.data;
-  //   });
-  // };
 
+  service.getMenuItems = function () {
+    console.log("length:"+regData.length);
+    if (regData.length === 0) {
+      var item = {
+        isSignUp: false,
+        firstname: "Not Signed Up Yet.",
+        lastname: "Sign up Now!"
+      };
+      regData.push(item);
+    }
+    return regData;
+  };
 
 }
 
