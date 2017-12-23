@@ -52,18 +52,9 @@
         <br>
 
         <input type="text" name="menunumber" placeholder="Pick a menunumber"
-          ng-model="reg.user.menunumber"
-          required
-          minlength="2"
-          ng-maxlength="3">
+          ng-model="reg.user.menunumber">
           {{ reg.user.menunumber }}
-          <span
-            ng-if="(signUpForm.menunumber.$error.minlength || signUpForm.menunumber.$error.required) && signUpForm.menunumber.$touched">
-            menunumber must be at least 4 characters long
-          </span>
-          <span ng-if="signUpForm.menunumber.$error.maxlength && signUpForm.menunumber.$touched">
-            menunumber must not be longer than 10 characters
-          </span>
+
           <br>
 
       <button
@@ -71,7 +62,7 @@
         ng-click="reg.submit()">Submit</button>
 
         <div style="margin-top: 10px;">
-          Form valid? {{ regForm.$valid }}
+          Form valid? {{ reg.$valid }}
         </div>
     </form>
   </fieldset>

@@ -15,13 +15,15 @@
 
 <div class="container">
   <h2 id="my-info-title" class="text-center">
-    {{ myInfoCtrl.menuInfos.menu_items.name}} Menu
+    <!-- {{ myInfoCtrl.menuInfos.menu_items.name}} Menu -->
+    {{ myInfoCtrl.menuInfos.menuname}} Menu
   </h2>
   <div class="text-center">
 
   </div>
 
-  <menu-info ng-repeat="menuInfo in myInfoCtrl.menuInfos.menu_items"
+  <!-- <menu-info ng-repeat="menuInfo in myInfoCtrl.menuInfos.menu_items" -->
+  <menu-info ng-repeat="menuInfo in myInfoCtrl.menuInfos"
              menu-info="menuInfo">
   </menu-info>
 

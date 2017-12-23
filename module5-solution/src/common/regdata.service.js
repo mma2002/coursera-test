@@ -45,10 +45,37 @@ function RegDataService($http, ApiPath) {
       config.params = {'short_name': short_name};
     }
 
-    return $http.get(ApiPath + '/menu_items.json', config).then(function (response) {
-      console.log("response:::"+response.data.menu_items[0].name);
+    return $http.get(ApiPath + '/menu_items.json').then(function (response) {
+      console.log("response");
+      // console.log(response.data.menu_items.length);
+      // console.log(response.data.menu_items.length);
+      var item = regData[0];
+      var foundItems = [];
+
+      var items = response.data.menu_items;
+      for (var i = 0; i < items.length; i++) {
+        if (JSON.stringify(short_name) == JSON.stringify(items[i].short_name)) {
+        // if (short_name.toLowerCase().indexOf(items[i].short_name) !== -1) {
+        // if (deepEqual(short_name, items[i].short_name)) {
+          console.log("stringify:"+item.firstname);
+          var newItem = {
+            firstname: item.firstname,
+            lastname: item.lastname,
+            email: item.email,
+            phone: item.phone,
+            menunumber: item.menunumber,
+            menuname: items[i].name,
+            shortname: items[i].short_name,
+            description: items[i].description
+          };
+          // regData.found.splice(0, 1);
+          foundItems.push(newItem);
+        }
+        // console.log("response:::"+response.data.menu_items[i].short_name);
+      }
+
       //console.log(items.menu_items[0].name);
-      return response.data;
+      return foundItems;
     });
   };
   // service.getMenuItems = function (category) {
