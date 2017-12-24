@@ -22,12 +22,10 @@ function RegDataService($http, ApiPath, $q, $timeout) {
 
     var short_name = newFormData.menunumber;
 
-    return $http.get(ApiPath + '/menu_items.json').then(function (response) {
-      console.log("response");
-      // var item = regData[0];
-      // var foundItems = [];
-
-      var items = response.data.menu_items;
+    return $http.get(ApiPath + '/menu_items.json').then(function (result) {
+      console.log("result");
+      var items = result.data.menu_items;
+      // var isExists = false;
       for (var i = 0; i < items.length; i++) {
         if (JSON.stringify(short_name) == JSON.stringify(items[i].short_name)) {
           // console.log("stringify:"+item.firstname);
@@ -43,15 +41,24 @@ function RegDataService($http, ApiPath, $q, $timeout) {
             description: items[i].description
           };
           regData.push(item);
+          deferred.resolve(regData);
+          return deferred.promise;
         }
+        // if (isExists == false) {
+        //
+        // }
       }
+    }, function (result) {
+      deferred.reject(response);
+      return deferred.promise;
     });
     // Wait 2 seconds before returning
-    $timeout(function () {
-      // deferred.reject(items);
-      deferred.resolve(regData);
-    }, 2000);
-    return deferred.reject(regData);
+    // $timeout(function () {
+    //   // deferred.reject(items);
+    //   deferred.resolve(regData);
+    // }, 2000);
+    // return deferred.reject(regData);
+    // return deferred.promise;
   };
 
   service.getMenuItems = function () {

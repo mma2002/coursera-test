@@ -16,6 +16,10 @@ button {
   color: black;
 }
 
+.error {
+  font-size: 20px;
+  color: yellow;
+}
 .initial-loading {
   margin-top: 60px;
 }

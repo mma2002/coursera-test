@@ -11,11 +11,20 @@ function SignUpController($scope, RegDataService) {
   reg.submit = function () {
     // reg.user.firstname =
     console.log(reg.user.firstname);
-    reg.completed = true;
 
     //var regdata = RegDataService();
-    var items = RegDataService.setData(reg.user);
-    console.log('regdata:'+items);
+    RegDataService.setData(reg.user).then(function (result) {
+      try {
+        reg.completed = true;
+        console.log('regdata:'+result[0].firstname);
+      } catch (e) {
+        console.log("error:"+e);
+        reg.message = "No such menu number exists";
+      }
+    }, function (error) {
+      console.log('regdata:'+error.statusText);
+    });
+
 
 
   }
